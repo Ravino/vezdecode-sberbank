@@ -1,6 +1,10 @@
 import { Container } from 'typescript-ioc';
 import escapeHtml from 'escape-html';
 import trim from 'trim';
+
+import {mergeSync} from "../mapping/mapping";
+import {userEntityToUserView} from '../mapping/userMapping';
+
 import { AuthorizationService } from '../service/authorizationService';
 import { UserService } from '../service/userService';
 import { Strategy } from 'passport-local';
@@ -69,9 +73,12 @@ export const emailStrategy = () => new Strategy(async (email: string, password: 
   }
 
 
+  const user: any = mergeSync(existUser, userEntityToUserView);
+
+
   const result = {
-    user: existUser,
-    pairToken: pairToken
+    user,
+    pairToken
   };
 
 
