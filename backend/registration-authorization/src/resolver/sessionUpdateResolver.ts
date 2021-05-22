@@ -1,8 +1,13 @@
 import { Inject } from 'typescript-ioc';
 import trim from 'trim';
 import { confSetCookie } from '../config/cookieParser';
+
+import {mergeSync} from "../mapping/mapping";
+import {userEntityToUserView} from '../mapping/userMapping';
+
 import { AuthorizationService } from '../service/authorizationService';
 import { SessionService } from '../service/sessionService';
+import {UserService} from '../service/userService';
 import { Request } from 'express';
 import { Response } from 'express';
 import { StatusView } from '../view/statusView';
@@ -16,6 +21,7 @@ export class SessionUpdateResolver {
   public constructor(
     @Inject private readonly authorizationService: AuthorizationService,
     @Inject private readonly sessionService: SessionService,
+    @Inject private readonly userService: UserService
   ){}
 
 
@@ -58,9 +64,29 @@ export class SessionUpdateResolver {
     }
 
 
+    let existUser:any;
+    try {
+      existUser = await this.userService.getByNameField('user_id', existSession.USER_ID);
+    }
+    catch(err) {
+      console.log(err);
+      this.statusView.addStatus('notSuccess');
+      return this.statusView;
+    }
+
+
+    if(!existUser) {
+      this.statusView.addStatus('notSuccess');
+      return this.statusView;
+    }
+
+
+    const user: any = mergeSync(existUser, userEntityToUserView);
+
+
     let pairToken: any;
     try {
-      pairToken = await this.authorizationService.getPairToken(existSession);
+      pairToken = await this.authorizationService.getPairToken(user);
     }
     catch(err) {
       console.log(err);
@@ -81,7 +107,7 @@ export class SessionUpdateResolver {
 
     let result: any;
     try {
-      result = await this.sessionService.update(existSession.SESSION_ID, existSession.SCOPE, existSession.BIND_TOKEN, bindToken);
+      result = await this.sessionService.update(existSession.SESSION_ID, existUser.SCOPE, existSession.BIND_TOKEN, bindToken);
     }
     catch(err) {
       console.log(err);
