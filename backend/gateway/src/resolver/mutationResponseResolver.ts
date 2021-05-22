@@ -18,11 +18,13 @@ export class MutationResponseResolver {
     const result: any = await this.vacancyService.getByNameField('vacancy_id', vacancyId);
 
 
+console.log("do");
     if(!result) {
       return false;
     }
 
 
+console.log("posle");
     return await this.responseService.create(vacancyId, userId);
   }
 

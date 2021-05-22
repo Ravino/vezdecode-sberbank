@@ -123,6 +123,7 @@ export class ResponseService {
     }
     catch(err) {
       console.log(err);
+      return false
     }
 
 
