@@ -1,4 +1,5 @@
 export class VacancyCursorView {
-  userId?: number;
-  size?: number;
+  public status?: string;
+  public userId?: number;
+  public size?: number;
 }
