@@ -28,6 +28,7 @@ export class VacancyService {
   public async getListByUserId(userId: number, size: number, offset: number): Promise<any[]|undefined> {
 
     const bindParams: any[] = [
+      userId,
       size,
       offset
     ];
