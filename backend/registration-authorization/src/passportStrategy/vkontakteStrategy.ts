@@ -51,18 +51,18 @@ export const vkontakteStrategy = () => new Strategy(configStrategyVkontakte, asy
   }
 
 
+  const user: any = mergeSync(existUser, userEntityToUserView);
+
+
   let pairToken: any;
   try {
-    pairToken = await Container.get(AuthorizationService).getPairToken(existUser);
+    pairToken = await Container.get(AuthorizationService).getPairToken(user);
   }
   catch(err) {
     console.log(err);
     done(null, false, { message: 'notSuccess'});
     return undefined;
   }
-
-
-  const user: any = mergeSync(existUser, userEntityToUserView);
 
 
   const result = {
