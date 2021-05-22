@@ -1,5 +1,9 @@
 import { Container } from 'typescript-ioc';
 import { configStrategyVkontakte } from '../config/passport';
+
+import {mergeSync} from "../mapping/mapping";
+import {userEntityToUserView} from '../mapping/userMapping';
+
 import { UserService } from '../service/userService';
 import { AuthorizationService } from '../service/authorizationService';
 import { Strategy } from 'passport-vkontakte';
@@ -58,9 +62,12 @@ export const vkontakteStrategy = () => new Strategy(configStrategyVkontakte, asy
   }
 
 
+  const user: any = mergeSync(existUser, userEntityToUserView);
+
+
   const result = {
-    user: existUser,
-    pairToken: pairToken
+    user,
+    pairToken
   };
 
 
