@@ -51,17 +51,22 @@ export class VacancyService {
   }
 
 
-  public async count(): Promise<number> {
+  public async countByUserId(userId: number): Promise<number> {
 
-    let count: number = 0;
+    const bindParams: any[] = [
+      userId
+    ];
+
+
+    let count: number[] = [];
     try {
-      count = await tarantool.sql(`select count(vacancy_id) from vacancies`);
+      count = await tarantool.sql(`select count(vacancy_id) from vacancies where scope=(select scope from positions where position_id=(select position_id from users where user_id=?))`, bindParams);
     }
     catch(err) {
       console.log(err);
     }
 
 
-    return count;
+    return count[0] || 0;
   }
 }

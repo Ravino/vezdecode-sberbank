@@ -47,7 +47,7 @@ export class RequestVacancyResolver {
   private async createVacancyList(userId: number, size: number, offset: number): Promise<VacancyListView> {
 
     const cursor: string = await this.createCursor(userId, size);
-    const count =  () => this.vacancyService.count();
+    const count =  () => this.vacancyService.countByUserId(userId);
     const items = () => {
       const result: any = this.vacancyService.getListByUserId(userId, size, offset);
       return mergeListAsync(result, vacancyEntityToVacancyView);
