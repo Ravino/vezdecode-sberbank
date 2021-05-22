@@ -25,7 +25,7 @@ export class VacancyService {
   }
 
 
-  public async getList(size: number, offset: number): Promise<any[]|undefined> {
+  public async getListByUserId(userId: number, size: number, offset: number): Promise<any[]|undefined> {
 
     const bindParams: any[] = [
       size,
@@ -35,7 +35,7 @@ export class VacancyService {
 
     let vacanciesList: any[] = [];
     try {
-      vacanciesList = await tarantool.sql(`select * from vacancies order by vacancy_id limit ? offset ?`, bindParams);
+      vacanciesList = await tarantool.sql(`select * from vacancies where scope=(select scope from positions where position_id=(select position_id from users where user_id=?)) order by vacancy_id limit ? offset ?`, bindParams);
     }
     catch(err) {
       console.log(err);
