@@ -113,7 +113,7 @@ export class ResponseService {
       currentAt,
       currentAt,
       'await',
-      uuidV4
+      uuidV4()
     ];
 
 
