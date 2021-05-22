@@ -27,7 +27,7 @@ const resolvers = {
 
 
   RequestVacancy: {
-    getList: (parent: RequestVacancyResolver, args: {size: number}, context: {user: any}) => parent.getList(context.user.userId, args.size),
+    getList: (parent: RequestVacancyResolver, args: {status: string, size: number}, context: {user: any}) => parent.getList(args.status, args.size, context.user.userId),
     select: (parent: RequestVacancyResolver, args: {cursor: string, offset: number}) => parent.select(args.cursor, args.offset)
   },
 
