@@ -1,0 +1,47 @@
+version: "3.7"
+
+
+services:
+  vezdecode-registration-authorization:
+    image: vezdecode-registration-authorization
+    build: ./registration-authorization
+    container_name: vezdecode-registration-authorization
+    restart: unless-stopped
+    depends_on:
+      - vezdecode-tarantool
+      - vezdecode-redis
+    env_file:
+      - ./registration-authorization/.env
+    ports:
+      - 127.0.0.12:8090:3000
+    networks:
+      - vezdecode
+
+
+  vezdecode-tarantool:
+    image: tarantool/tarantool:2
+    container_name: vezdecode-tarantool
+    restart: unless-stopped
+    ports:
+      - 127.0.0.12:3301:3301
+    volumes:
+      - /databases/vezdecode/tarantool:/var/lib/tarantool
+    networks:
+      - vezdecode
+
+
+  vezdecode-redis:
+    image: redis
+    container_name: vezdecode-redis
+    restart: unless-stopped
+    ports:
+      - 127.0.0.12:6379:6379
+    volumes:
+      - /databases/vezdecode/redis:/data
+    networks:
+      - vezdecode
+
+
+networks:
+  vezdecode:
+    driver: bridge
