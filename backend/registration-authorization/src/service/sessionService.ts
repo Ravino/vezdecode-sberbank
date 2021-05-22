@@ -90,8 +90,8 @@ export class SessionService {
     const country: string = req.ipInfo.country || '';
     const region: string = req.ipInfo.region || '';
     const city: string = req.ipInfo.city || '';
-    const userId: number = payload.user.USER_ID;
-    const scope: string = payload.user.SCOPE || '';
+    const userId: number = payload.user.userId;
+    const scope: string = payload.user.scope || '';
     const accessToken: string = payload.pairToken.accessToken || '';
     const refreshToken: string = payload.pairToken.refreshToken || '';
 
