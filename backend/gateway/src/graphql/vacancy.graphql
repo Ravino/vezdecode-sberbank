@@ -3,4 +3,5 @@ type Vacancy {
   description: String!
   createdAt: ZonedDateTime!
   updatedAt: ZonedDateTime!
+  status: String!
 }
