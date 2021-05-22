@@ -19,20 +19,21 @@ export class RequestVacancyResolver {
   ) {}
 
 
-  public async getList(userId: number, size: number): Promise<VacancyListView> {
-    return await this.createVacancyList(userId, size, 0);
+  public async getList(status: string, size: number, userId: number): Promise<VacancyListView> {
+    return await this.createVacancyList(status, userId, size, 0);
   }
 
 
     public async select(cursor: string, offset: number): Promise<VacancyListView> {
       const request = JSON.parse(decode(cursor));
-      return await this.createVacancyList(request.userId, request.size, offset);
+      return await this.createVacancyList(request.status, request.userId, request.size, offset);
     }
 
 
-  private async createCursor(userId: number, size: number): Promise<string> {
+  private async createCursor(status: string, userId: number, size: number): Promise<string> {
 
     const cursorObj = <VacancyCursorView>{
+      status,
       userId,
       size
     };
@@ -44,12 +45,12 @@ export class RequestVacancyResolver {
   }
 
 
-  private async createVacancyList(userId: number, size: number, offset: number): Promise<VacancyListView> {
+  private async createVacancyList(status: string, userId: number, size: number, offset: number): Promise<VacancyListView> {
 
-    const cursor: string = await this.createCursor(userId, size);
-    const count =  () => this.vacancyService.countByUserId(userId);
+    const cursor: string = await this.createCursor(status, userId, size);
+    const count =  () => this.vacancyService.countByUserId(status, userId);
     const items = () => {
-      const result: any = this.vacancyService.getListByUserId(userId, size, offset);
+      const result: any = this.vacancyService.getListByUserId(status, userId, size, offset);
       return mergeListAsync(result, vacancyEntityToVacancyView);
     };
 
