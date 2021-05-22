@@ -58,7 +58,7 @@ export class VacancyService {
     ];
 
 
-    let count: number[] = [];
+    let count: any[] = [];
     try {
       count = await tarantool.sql(`select count(vacancy_id) from vacancies where scope=(select scope from positions where position_id=(select position_id from users where user_id=?))`, bindParams);
     }
@@ -67,6 +67,11 @@ export class VacancyService {
     }
 
 
-    return count[0] || 0;
+    if(!count[0]) {
+      return 0;
+    }
+
+
+    return count[0].COLUMN_1;
   }
 }
