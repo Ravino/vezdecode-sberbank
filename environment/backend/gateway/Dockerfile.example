@@ -1,0 +1,19 @@
+FROM node:14
+
+ENV TARANTOOL_PORT=
+ENV TARANTOOL_HOST=
+ENV TARANTOOL_USER_NAME=
+ENV TARANTOOL_USER_PASSWORD=
+ENV CONF_SET_COOKIE_NAME=
+ENV CONF_SET_COOKIE_DOMAIN=
+
+
+RUN mkdir /www && mkdir /www/app
+WORKDIR /www/app
+COPY package.json .
+RUN npm i
+COPY . .
+RUN cp src/types/custom.tarantool.d.ts node_modules/@types/tarantool-driver/index.d.ts
+RUN npm run build
+RUN rm -R src
+CMD ["npm", "start"]
