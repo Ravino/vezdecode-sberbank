@@ -3,4 +3,5 @@ export class VacancyView {
   public description?: string;
   public createdAt?: Date;
   public updatedAt?: Date;
+  public status?: string;
 }
