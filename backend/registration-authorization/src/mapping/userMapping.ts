@@ -1,4 +1,4 @@
 export const userEntityToUserView = {
-  user_ID: 'userId',
+  USER_ID: 'userId',
   'SCOPE': 'scope'
 }
