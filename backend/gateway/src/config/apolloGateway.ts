@@ -8,11 +8,18 @@ import {context} from './context';
 
 import {QueryResolver} from '../resolver/queryResolver';
 import {RequestVacancyResolver} from '../resolver/requestVacancyResolver';
+import {RequestResponseResolver} from '../resolver/requestResponseResolver';
+
+import {MutationResolver} from '../resolver/mutationResolver';
+import {MutationResponseResolver} from '../resolver/mutationResponseResolver';
 
 
 import {VacancyView} from '../view/vacancyView';
+import {ResponseView} from '../view/responseView';
+
 
 import {VacancyListView} from '../view/vacancyListView';
+import {ResponseListView} from '../view/responseListView';
 
 
 const pathSchema: string = path.join(__dirname, "../graphql/main.graphql");
@@ -22,7 +29,13 @@ const typeDefs = gql`${ schemaContent }`;
 
 const resolvers = {
   Query: {
-    requestVacancy: () => Container.get(QueryResolver).requestVacancyResolver
+    requestVacancy: () => Container.get(QueryResolver).requestVacancyResolver,
+    requestResponse: () => Container.get(QueryResolver).requestResponseResolver
+  },
+
+
+  Mutation: {
+    mutationResponse: () => Container.get(MutationResolver).mutationResponseResolver
   },
 
 
@@ -32,9 +45,27 @@ const resolvers = {
   },
 
 
+  RequestResponse: {
+    getList: (parent: RequestResponseResolver, args: {status: string, size: number}, context: {user: any}) => parent.getList(args.status, args.size, context.user.userId),
+    select: (parent: RequestResponseResolver, args: {cursor: string, offset: number}) => parent.select(args.cursor, args.offset)
+  },
+
+
+  MutationResponse: {
+    add: (parent: MutationResponseResolver, args: {vacancyId: number}, context: {user: any}) => parent.add(context.user.userId, args.vacancyId),
+    remove: (parent: MutationResponseResolver, args: {responseId: number}, context: {user: any}) => parent.remove(context.user.userId, args.responseId)
+  },
+
+
   VacancyList: {
     count: (parent: VacancyListView) => parent.count(),
     items: (parent: VacancyListView) => parent.items()
+  },
+
+
+  ResponseList: {
+    count: (parent: ResponseListView) => parent.count(),
+    items: (parent: ResponseListView) => parent.items()
   }
 };
 
