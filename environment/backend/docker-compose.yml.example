@@ -2,6 +2,19 @@ version: "3.7"
 
 
 services:
+  vezdecode-gateway:
+    image: vezdecode-gateway
+    build: ./gateway
+    container_name: vezdecode-gateway
+    restart: unless-stopped
+    env_file:
+      - ./gateway/.env
+    ports:
+      - 127.0.0.12:8080:3000
+    networks:
+      - vezdecode
+
+
   vezdecode-registration-authorization:
     image: vezdecode-registration-authorization
     build: ./registration-authorization
