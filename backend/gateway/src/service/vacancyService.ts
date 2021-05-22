@@ -25,9 +25,10 @@ export class VacancyService {
   }
 
 
-  public async getListByUserId(userId: number, size: number, offset: number): Promise<any[]|undefined> {
+  public async getListByUserId(status: string, userId: number, size: number, offset: number): Promise<any[]|undefined> {
 
     const bindParams: any[] = [
+      status,
       userId,
       size,
       offset
@@ -36,7 +37,7 @@ export class VacancyService {
 
     let vacanciesList: any[] = [];
     try {
-      vacanciesList = await tarantool.sql(`select * from vacancies where scope=(select scope from positions where position_id=(select position_id from users where user_id=?)) order by vacancy_id limit ? offset ?`, bindParams);
+      vacanciesList = await tarantool.sql(`select * from vacancies where status=? and scope=(select scope from positions where position_id=(select position_id from users where user_id=?)) order by vacancy_id limit ? offset ?`, bindParams);
     }
     catch(err) {
       console.log(err);
@@ -52,16 +53,17 @@ export class VacancyService {
   }
 
 
-  public async countByUserId(userId: number): Promise<number> {
+  public async countByUserId(status: string, userId: number): Promise<number> {
 
     const bindParams: any[] = [
+      status,
       userId
     ];
 
 
     let count: any[] = [];
     try {
-      count = await tarantool.sql(`select count(vacancy_id) from vacancies where scope=(select scope from positions where position_id=(select position_id from users where user_id=?))`, bindParams);
+      count = await tarantool.sql(`select count(vacancy_id) from vacancies where status=? and scope=(select scope from positions where position_id=(select position_id from users where user_id=?))`, bindParams);
     }
     catch(err) {
       console.log(err);
