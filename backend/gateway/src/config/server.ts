@@ -10,5 +10,5 @@ export const server: express.Application = express();
 
 cookieParserInitialization(server);
 bodyParserInitialization(server);
-//routerInitialization(server);
+routerInitialization(server);
 apolloGatewayInitialization(server);
