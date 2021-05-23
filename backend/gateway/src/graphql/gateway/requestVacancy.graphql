@@ -1,0 +1,4 @@
+type RequestVacancy {
+  getList(status: String!, size: Int!): VacancyList!
+  select(cursor: String!, offset: Int!): VacancyList!
+}

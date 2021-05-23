@@ -6,12 +6,12 @@ import { Application, Request } from 'express';
 import {context} from './context';
 
 
-import {QueryResolver} from '../resolver/gateway/queryResolver';
-import {RequestVacancyResolver} from '../resolver/gateway/requestVacancyResolver';
-import {RequestResponseResolver} from '../resolver/gateway/requestResponseResolver';
+import {QueryResolver} from '../resolver/backoffice/queryResolver';
+import {RequestVacancyResolver} from '../resolver/backoffice/requestVacancyResolver';
+import {RequestResponseResolver} from '../resolver/backoffice/requestResponseResolver';
 
-import {MutationResolver} from '../resolver/gateway/mutationResolver';
-import {MutationResponseResolver} from '../resolver/gateway/mutationResponseResolver';
+import {MutationResolver} from '../resolver/backoffice/mutationResolver';
+import {MutationResponseResolver} from '../resolver/backoffice/mutationResponseResolver';
 
 
 import {VacancyView} from '../view/vacancyView';
@@ -22,7 +22,7 @@ import {VacancyListView} from '../view/vacancyListView';
 import {ResponseListView} from '../view/responseListView';
 
 
-const pathSchema: string = path.join(__dirname, "../graphql/gateway/main.graphql");
+const pathSchema: string = path.join(__dirname, "../graphql/main.graphql");
 const schemaContent: string = readFileSync(pathSchema, {encoding: 'utf8'});
 const typeDefs = gql`${ schemaContent }`;
 
@@ -77,9 +77,9 @@ const apolloServer: ApolloServer = new ApolloServer({
   tracing: true
 });
 
-export function apolloGatewayInitialization(app: Application) {
+export function apolloBackofficeInitialization(app: Application) {
   apolloServer.applyMiddleware({
     app,
-    path: "/graphql/gateway"
+    path: "/graphql/backoffice"
   });
 }

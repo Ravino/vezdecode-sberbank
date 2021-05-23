@@ -1,14 +1,14 @@
 import {Inject, Singleton} from 'typescript-ioc';
 import {decode, encode} from "js-base64";
 
-import {mergeAsync, mergeListAsync} from "../mapping/mapping";
-import {vacancyEntityToVacancyView} from '../mapping/vacancyMapping';
+import {mergeAsync, mergeListAsync} from "../../mapping/mapping";
+import {vacancyEntityToVacancyView} from '../../mapping/vacancyMapping';
 
-import {VacancyView} from '../view/vacancyView';
-import {VacancyListView} from '../view/vacancyListView';
-import {VacancyCursorView} from '../view/vacancyCursorView';
+import {VacancyView} from '../../view/vacancyView';
+import {VacancyListView} from '../../view/vacancyListView';
+import {VacancyCursorView} from '../../view/vacancyCursorView';
 
-import {VacancyService} from '../service/vacancyService';
+import {VacancyService} from '../../service/vacancyService';
 
 
 @Singleton

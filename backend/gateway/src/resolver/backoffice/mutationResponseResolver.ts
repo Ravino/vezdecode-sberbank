@@ -1,7 +1,7 @@
 import {Inject, Singleton} from 'typescript-ioc';
 
-import {ResponseService} from '../service/responseService';
-import {VacancyService} from '../service/vacancyService';
+import {ResponseService} from '../../service/responseService';
+import {VacancyService} from '../../service/vacancyService';
 
 
 @Singleton

@@ -1,0 +1,4 @@
+type Query {
+  requestVacancy: RequestVacancy!
+  requestResponse: RequestResponse!
+}

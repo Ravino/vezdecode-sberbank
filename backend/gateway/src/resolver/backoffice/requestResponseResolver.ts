@@ -1,21 +1,21 @@
 import {Inject, Singleton} from 'typescript-ioc';
 import {decode, encode} from "js-base64";
 
-import {mergeAsync, mergeListAsync} from "../mapping/mapping";
-import {vacancyEntityToVacancyView} from '../mapping/vacancyMapping';
-import {responseEntityToResponseView} from '../mapping/responseMapping';
+import {mergeAsync, mergeListAsync} from "../../mapping/mapping";
+import {vacancyEntityToVacancyView} from '../../mapping/vacancyMapping';
+import {responseEntityToResponseView} from '../../mapping/responseMapping';
 
-import {VacancyView} from '../view/vacancyView';
-import {VacancyListView} from '../view/vacancyListView';
-import {VacancyCursorView} from '../view/vacancyCursorView';
+import {VacancyView} from '../../view/vacancyView';
+import {VacancyListView} from '../../view/vacancyListView';
+import {VacancyCursorView} from '../../view/vacancyCursorView';
 
-import {VacancyService} from '../service/vacancyService';
-import {ResponseService} from '../service/responseService';
+import {VacancyService} from '../../service/vacancyService';
+import {ResponseService} from '../../service/responseService';
 
 
-import {ResponseView} from '../view/responseView';
-import {ResponseListView} from '../view/responseListView';
-import {ResponseCursorView} from '../view/responseCursorView';
+import {ResponseView} from '../../view/responseView';
+import {ResponseListView} from '../../view/responseListView';
+import {ResponseCursorView} from '../../view/responseCursorView';
 
 
 @Singleton

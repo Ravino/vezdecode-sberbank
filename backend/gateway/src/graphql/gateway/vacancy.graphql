@@ -1,0 +1,7 @@
+type Vacancy {
+  vacancyId: ID!
+  description: String!
+  createdAt: ZonedDateTime!
+  updatedAt: ZonedDateTime!
+  status: String!
+}

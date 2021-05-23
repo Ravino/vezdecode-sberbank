@@ -1,0 +1,4 @@
+type MutationResponse {
+  add(vacancyId: Int!): Boolean!
+  remove(responseId: Int!): Boolean!
+}
