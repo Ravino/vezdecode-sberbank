@@ -18,7 +18,7 @@ export class MutationResponseResolver {
   public async add(userId: number, vacancyId: number): Promise<boolean> {
 
     const vacancy: any = await this.vacancyService.getByNameField('vacancy_id', vacancyId);
-    const comment: any = await this.commentService.getByNameField('type', 'await');
+    const comment: any = await this.commentService.getByNameField('type', vacancy.STATUS);
 
 
     if(!vacancy) {
