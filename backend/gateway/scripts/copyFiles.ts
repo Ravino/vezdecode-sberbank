@@ -11,7 +11,8 @@ const src = path.resolve(root, 'src');
 
 
 const filesToCopy = [
-    "graphql/main.graphql",
+    "graphql/backoffice/main.graphql",
+    "graphql/gateway/main.graphql",
     "jwtRS256.key",
     "jwtRS256.key.pub"
 ]

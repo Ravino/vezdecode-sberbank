@@ -8,32 +8,51 @@ const PUnlink = promisify(unlink);
 const pReadFile = promisify(readFile);
 const PWriteFile = promisify(writeFile);
 const PGlob = promisify(glob);
-const workDir = path.resolve(__dirname, "../src/graphql")
-const pathNameSchema = path.resolve(workDir, 'main.graphql');
-const template = path.resolve(workDir, '*.graphql');
+
+const workDirGateway = path.resolve(__dirname, "../src/graphql/gateway");
+const gateway = {
+  workDir: workDirGateway,
+  pathNameSchema: path.resolve(workDirGateway, 'main.graphql'),
+  template: path.resolve(workDirGateway, '*.graphql')
+};
+
+
+const workDirBackoffice = path.resolve(__dirname, "../src/graphql/backoffice");
+const backoffice = {
+  workDir: workDirBackoffice,
+  pathNameSchema: path.resolve(workDirBackoffice, 'main.graphql'),
+  template: path.resolve(workDirBackoffice, '*.graphql')
+};
+
+const arr = [
+  gateway,
+  backoffice
+];
 
 
 const start = async () => {
 
-  try {
-    await PUnlink(pathNameSchema);
+  for(let t of arr) {
+    try {
+      await PUnlink(t.pathNameSchema);
+    }
+    catch(err) {}
+
+
+    const filesToBuild = await PGlob(t.template);
+    const schemaChunk = [];
+
+
+    for (const file of filesToBuild) {
+      const fullSource = path.resolve(t.workDir, file);
+      const source = await pReadFile(fullSource, {encoding: 'utf8'});
+      schemaChunk.push(source);
+    }
+
+
+    const schema = schemaChunk.join('\n');
+    await PWriteFile(t.pathNameSchema, schema);
   }
-  catch(err) {}
-
-
-  const filesToBuild = await PGlob(template);
-  const schemaChunk = [];
-
-
-  for (const file of filesToBuild) {
-    const fullSource = path.resolve(workDir, file);
-    const source = await pReadFile(fullSource, {encoding: 'utf8'});
-    schemaChunk.push(source);
-  }
-
-
-  const schema = schemaChunk.join('\n');
-  await PWriteFile(pathNameSchema, schema);
 }
 
 start().catch((error) => {
