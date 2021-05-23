@@ -1,0 +1,4 @@
+type MutationResponse {
+  accept(responseId: Int!): Boolean!
+  cancel(responseId: Int!): Boolean!
+}

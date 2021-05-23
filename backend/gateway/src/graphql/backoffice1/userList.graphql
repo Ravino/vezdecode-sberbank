@@ -1,0 +1,5 @@
+type UserList {
+  cursor: String!
+  count: Int!
+  items: [User!]!
+}

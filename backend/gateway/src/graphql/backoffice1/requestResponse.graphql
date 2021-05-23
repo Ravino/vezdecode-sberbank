@@ -1,0 +1,4 @@
+type RequestResponse {
+  getList(status: String!, size: Int!): ResponseList!
+  select(cursor: String!, offset: Int!): ResponseList!
+}

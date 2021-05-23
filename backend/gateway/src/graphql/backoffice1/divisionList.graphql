@@ -1,0 +1,5 @@
+type DivisionList {
+  cursor: String!
+  count: Int!
+  items: [Division!]!
+}

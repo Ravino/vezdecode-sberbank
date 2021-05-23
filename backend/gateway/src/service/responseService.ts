@@ -129,4 +129,26 @@ export class ResponseService {
 
     return true;
   }
+
+
+  public async setCommentId(vacancyId: number, userId: number, commentId: number): Promise<boolean> {
+
+    const bindParams: any[] = [
+      commentId,
+      vacancyId,
+      userId
+    ];
+
+
+    try {
+      await tarantool.sql(`update responses set comment_id=? where vacancy_id=? and user_id=?`, bindParams);
+    }
+    catch(err) {
+      console.log(err);
+      return false;
+    }
+
+
+    return true;
+  }
 }

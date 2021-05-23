@@ -1,0 +1,5 @@
+type Mutation {
+  mutationResponse: MutationResponse!
+  mutationVacancy: MutationVacancy!
+  mutationUser: MutationUser!
+}

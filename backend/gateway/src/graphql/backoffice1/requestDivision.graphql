@@ -1,0 +1,4 @@
+type RequestDivision {
+  getList(status: String!, size: Int!): DivisionList!
+  select(cursor: String!, offset: Int!): DivisionList!
+}

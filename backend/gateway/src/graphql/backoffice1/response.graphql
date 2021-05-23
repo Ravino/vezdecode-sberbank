@@ -1,0 +1,8 @@
+type Response {
+  responseId: ID!
+  createdAt: ZonedDateTime!
+  updatedAt: ZonedDateTime!
+  userId: ID!
+  vacancyId: ID!
+  status: String!
+}

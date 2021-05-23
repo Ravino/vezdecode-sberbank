@@ -1,0 +1,4 @@
+type RequestUser {
+  getList(status: String!, size: Int!): UserList!
+  select(cursor: String!, offset: Int!): UserList!
+}

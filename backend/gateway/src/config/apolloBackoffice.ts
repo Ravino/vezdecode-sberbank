@@ -22,7 +22,7 @@ import {VacancyListView} from '../view/vacancyListView';
 import {ResponseListView} from '../view/responseListView';
 
 
-const pathSchema: string = path.join(__dirname, "../graphql/main.graphql");
+const pathSchema: string = path.join(__dirname, "../graphql/backoffice/main.graphql");
 const schemaContent: string = readFileSync(pathSchema, {encoding: 'utf8'});
 const typeDefs = gql`${ schemaContent }`;
 

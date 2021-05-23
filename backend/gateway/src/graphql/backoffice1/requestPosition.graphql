@@ -1,0 +1,4 @@
+type RequestPosition {
+  getList(status: String!, size: Int!): PositionList!
+  select(cursor: String!, offset: Int!): PositionList!
+}
