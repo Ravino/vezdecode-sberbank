@@ -1,0 +1,46 @@
+const {v4} = require("uuid");
+const tarantool = require("./config/tarantool");
+
+
+tarantool.on("connect", async () => {
+
+  const bindParams = [
+    name,
+    language,
+    subject,
+    body,
+    Date.now(),
+    Date.now(),
+    v4()
+  ];
+
+
+  try {
+    await tarantool.sql(`insert into mail_templates (name, language, subject, body, created_at, updated_at, uuid) values (?, ?, ?, ?, ?, ?, ?)`, bindParams);
+  }
+  catch(err) {
+    console.log(err);
+  }
+
+
+  global.process.exit();
+});
+
+
+const name = 'recoveryPassword';
+const language = 'ru';
+const subject = "Сброс пароля";
+
+
+const body = `
+doctype html
+html(lang='ru')
+  head
+    meta(charset='utf8')
+  body
+    h1 Здравствуйте!
+    div Над Вами совершаете роковое действие? Поэтому Вы решили востановить пароль?
+    div Вот Ваш старый пароль: #{password}
+    div Вот <a href='https://nesaweb.xyz/registration-authorization/verification/password?token=#{verificationToken}'>ссылка</a> на сброс пароля
+    div Мы беспокоимся за Вас!
+`

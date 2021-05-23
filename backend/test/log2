@@ -1,0 +1,1 @@
+curl -c authCookie -H "Host: dev.plizi.fun" -d "method=authentication&username=evgeniy@nekrasov.pw&password=23gGzksMqKPPT82" https://dev.plizi.fun/registration-authorization/signin/email

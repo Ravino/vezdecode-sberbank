@@ -1,0 +1,10 @@
+doctype html
+html(lang='ru')
+  head
+    meta(charset='utf8')
+  body
+    h1 Здравствуйте!
+    div Это великолепно, Вы зарегистрировались на нашем сайте и мы рады этому!
+    div Для авторизации вам понадобиться код, вот он: #{password}
+    div Также вам требуется потвердить ваш аккаунт, вот <a href='https://nesa.xyz/registration-authorization/verification/email?token=#{verificationToken}'>ссылка</a>
+    div Спасибо за уделенное время!

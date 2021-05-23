@@ -1,0 +1,19 @@
+"use strict";
+
+
+const SocketioClient = require("socket.io-client");
+
+
+const client = SocketioClient('https://dev.plizi.fun', { path: '/ws/websocket', transport: ['websocket'], upgrade: false});
+
+
+client.on('connect', () => {
+  console.log('connect');
+  const obj = {
+    chatId: 1,
+    body: 'test'
+  };
+  client.emit('room-join', obj);
+
+  client.on('room-message', (data) => console.log(data));
+});

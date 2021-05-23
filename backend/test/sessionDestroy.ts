@@ -1,0 +1,10 @@
+const axios = require('axios');
+
+
+const pairToken = {
+  "refreshToken":".NzEzMjg1NTA.V1baMR/G11lvUIOEB+WdwvqmHHbxm8ovtk7l8uXFqhg",
+  "accessToken":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTc2MjkzNTAsImV4cCI6MTYxNzYzMDI1MH0.r7OE-ZUS_SszitTosHCDCqwbI7CzY0eO1WCRkJSFkm1bbzOdftgITWa7Em-VkVpQpScHYMzWdmf9Hqm9Kyb7zhAbRang4iMqrmWANFPOc6e5xhCkNMf80I834Z8FR9RGZb5GhtcuGoxGKQIEfcG6DIi8h9CtsO_iUQWwP56Y0Vl7UjRDovTmOrYB-nslcb3I51bvSUzhohrnEvpnImMtHU2HfzKrXhBR6V9OlDGsNBLO9sWisEhQTdL94MFGAX3nM5Sx0kss6kf0cB8kdXXD1gob_2Ii79cCpdBVWLafXB0l9wHcyF2UZJ1D9ue7kEeNO3Ag9aig4R63Ch0CPpgum_RrYirvTL3YKEMwwwHMHvH9Pi2SFeOeUeyiyC1W2gP4_nZgoidwxqQDh1_xH2T-D0fG7ooCjV5dx42zNDFDdS_Jb7tfInuAnL36r9d2VyyqpWWFvQhhdME9-hYA2BsTciBp6s3pQb6L0363G8N8NVcYONomr_ZweRfPwZFbr1PXtDQGP7nqiPNvmr36d85bkA9d1bKaR8M6iDkDLcXOBjhfp8EtVuUklVii658Z5XeI0T91sX3qYje5SJwQAgWHjLrFWQ8rprgo5OwwCXFWvCVc8f2MyOSCfDkMIQujU9iy3PDgn99iA_WjXsq-JCS7nLSk9dMzIG2cjVOWBedVoWs"
+};
+
+
+axios.post('http://localhost:3000/session/destroy', pairToken).then( d => console.log(d.body), err => console.log(err));
